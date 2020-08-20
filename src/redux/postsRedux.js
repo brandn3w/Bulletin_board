@@ -1,5 +1,10 @@
 /* selectors */
-export const getAll = ({posts}) => posts.data;
+export const getAll = ({ posts }) => posts.data;
+
+export const getPostById = ({ posts }, postId) => {
+  const filteredPost = posts.data.filter(post => post.id == postId);
+  return filteredPost.length ? filteredPost[0] : { error: true };
+};
 
 /* action name creator */
 const reducerName = 'posts';
@@ -16,7 +21,20 @@ export const fetchSuccess = payload => ({ payload, type: FETCH_SUCCESS });
 export const fetchError = payload => ({ payload, type: FETCH_ERROR });
 
 /* thunk creators */
+export const fetchPublished = () => {
+  return (dispatch, getState) => {
+    dispatch(fetchStarted());
 
+    Axios
+      .get('http://localhost:8000/api/posts')
+      .then(res => {
+        dispatch(fetchSuccess(res.data));
+      })
+      .catch(err => {
+        dispatch(fetchError(err.message || true));
+      });
+  };
+};
 /* reducer */
 export const reducer = (statePart = [], action = {}) => {
   switch (action.type) {
