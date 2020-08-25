@@ -42,7 +42,7 @@ const Component = ({className, user, posts}) => (
             </Card.Text>
           </Card.Body>
           <Card.Footer>
-            <small className="text-muted">Published {ad.publishedDate}</small>
+            <small className="text-muted">Published {ad.published}</small>
           </Card.Footer>
         </Card>
         </Col>
