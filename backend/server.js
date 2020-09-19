@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 /* API ENDPOINTS */
-app.use('/api', postsRoutes);
+app.use('/api', require('./routes/posts.routes'));
 
 /* API ERROR PAGES */
 app.use('/api', (req, res) => {
@@ -21,10 +21,10 @@ app.use('/api', (req, res) => {
 });
 
 /* REACT WEBSITE */
-app.use(express.static(path.join(__dirname, '../build')));
-app.use('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../build/index.html'));
-});
+// app.use(express.static(path.join(__dirname, '../build')));
+// app.use('*', (req, res) => {
+//   res.sendFile(path.join(__dirname, '../build/index.html'));
+// });
 
 /* MONGOOSE */
 mongoose.connect('mongodb://localhost:27017/bulletinBoard', { useNewUrlParser: true, useUnifiedTopology: true });

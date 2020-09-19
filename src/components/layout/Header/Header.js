@@ -16,7 +16,7 @@ const Component = ({ className, user }) => (
     <Navbar bg="dark" variant="dark">
       <Navbar.Brand href="/">Bulletin Board</Navbar.Brand>
      
-      {user.authenticated ?(
+      {user.authenticated ? (
       <Nav className="mr-auto">
         <Nav.Link href="/">My ads</Nav.Link>
         <Nav.Link href="/">Logout</Nav.Link>
@@ -44,7 +44,7 @@ const mapStateToProps = state => ({
 //   someAction: arg => dispatch(reduxActionCreator(arg)),
 // });
 
- const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
+ const Container = connect(mapStateToProps)(Component);
 
 export {
   Container as Header,

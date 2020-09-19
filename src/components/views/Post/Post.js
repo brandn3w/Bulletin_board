@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import clsx from 'clsx';
-
+import { displayTime } from '../../../utils/displayTime';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 
@@ -14,12 +14,13 @@ import styles from './Post.module.scss';
 
 const Component = ({ className, post, user }) => (
   <div className={clsx(className, styles.root)}>
-    <h2>Post</h2>
-    {user.authenticated ? (<Button href={`/post/edit/${post.id}/edit`} variant="dark">Edit post</Button>) : ''}
+    {user.id === post.user.id ? (<Button className="m-3" href={`/post/${post.id}/edit`} variant="dark">Edit post</Button>) : ''}
+  
     <Card>
-      <Card.Img variant="top" src={post.image} />
       <Card.Header>{post.title}</Card.Header>
-      <Card.Subtitle className="mt-2 text-muted">Published {post.published}</Card.Subtitle>
+      <Card.Img className={styles.postImage} variant="top" src={post.image} />
+      <Card.Subtitle className="mt-2 text-muted">{post.price}</Card.Subtitle>
+      <Card.Subtitle className="mt-2">Status: {post.status}</Card.Subtitle>
       <Card.Body>
         <Card.Text>
           {post.content}
@@ -40,8 +41,8 @@ const Component = ({ className, post, user }) => (
         </ul>
       </Card.Body>
       <Card.Footer>
-        <small className="text-muted">Last update {post.updated}</small>
-        <small className="text-muted">Published {post.published}</small>
+        <small className="text-muted">Last update {displayTime(post.updated)}</small>
+        <small className="text-muted">Published {displayTime(post.published)}</small>
       </Card.Footer>
     </Card>
   </div>

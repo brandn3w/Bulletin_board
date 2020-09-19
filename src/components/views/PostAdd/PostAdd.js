@@ -1,7 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import randomID from '@wallzack/randomid-generator';
-
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
@@ -59,18 +57,20 @@ class Component extends React.Component {
     e.preventDefault();
 
     if (postData.title && postData.content && postData.email) {
+
+      const formData = new FormData();
       const time = new Date();
-      const displayTime = `${time.getDate()}.${time.getMonth()}.${time.getFullYear()}, ${time.getHours()}:${time.getMinutes()}`;
-      const payload = {
-        ...postData,
-        id: randomID(10),
-        published: displayTime,
-        updated: displayTime,
-        user: {
-          id: user.id,
-        },
-      };
-      await addPost(payload);
+      for (let key of ['email', 'content', 'title', 'location', 'price', 'phone']) {
+        formData.append(key, postData[key]);
+      }
+      formData.append('image', postData.image);
+      formData.append('published', time);
+      formData.append('updated', time);
+      formData.append('status', 'Published');
+      formData.append('user', user.id);
+
+      addPost(formData);
+      this.props.history.push('/my-posts');
     } else this.setState({ isError: true });
 
   };

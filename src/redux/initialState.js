@@ -1,6 +1,8 @@
+import posts from '../db.json';
+
 export const initialState = {
   posts: {
-    data: {},
+    data: [],
     loading: {
       active: false,
       error: false,
@@ -8,6 +10,6 @@ export const initialState = {
   },
   user: {
     rights: '',
-    authenticated: false,
+    authenticated: true,
   },
 };

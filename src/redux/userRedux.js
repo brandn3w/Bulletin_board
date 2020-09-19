@@ -19,3 +19,4 @@ export const reducer = (statePart = [], action = {}) => {
       return statePart;
   }
 };
+
